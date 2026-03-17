@@ -54,6 +54,28 @@ export function ThemeProvider({
   }, [theme])
 
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "d") {
+        e.preventDefault()
+        setThemeState((prevTheme) => {
+          const currentTheme =
+            prevTheme === "system"
+              ? window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light"
+              : prevTheme
+          const nextTheme = currentTheme === "dark" ? "light" : "dark"
+          localStorage.setItem(storageKey, nextTheme)
+          return nextTheme
+        })
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [storageKey])
+
+  useEffect(() => {
     let unlisten: (() => void) | undefined
 
     if (theme === "system") {
