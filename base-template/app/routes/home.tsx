@@ -14,6 +14,9 @@ export default function Home() {
             <Button>Click me</Button>
             <ModeToggle />
           </div>
+          <p className="mt-8 text-xs text-muted-foreground/60">
+            Tip: Press <kbd className="rounded border bg-muted px-1 py-0.5">Ctrl</kbd> + <kbd className="rounded border bg-muted px-1 py-0.5">D</kbd> to toggle theme
+          </p>
         </div>
       </div>
     </div>
