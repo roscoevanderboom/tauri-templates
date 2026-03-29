@@ -1,21 +1,44 @@
-# React + TypeScript + Vite + shadcn/ui
+# ⚡ Tauri + Vite + React + SurrealDB WASM
 
-This is a template for a new Vite project with React, TypeScript, and shadcn/ui.
+A high-performance, production-ready Tauri template featuring an embedded SurrealDB WASM instance for ultra-fast local data persistence.
 
-## Adding components
+## 🛠️ Tech Stack
 
-To add components to your app, run the following command:
+- **Runtime:** [Tauri 2.0](https://tauri.app/)
+- **Frontend:** [React 19](https://react.dev/) + [Vite 7](https://vitejs.dev/)
+- **Routing:** [React Router 7](https://reactrouter.com/)
+- **Database:** [SurrealDB WASM](https://surrealdb.com/docs/surrealdb/integration/libraries/wasm) (In-memory by default)
+- **State Management:** [Zustand](https://github.com/pmndrs/zustand)
+- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
+- **Theme:** [next-themes](https://github.com/pacocoursey/next-themes) (Light/Dark mode)
 
-```bash
-npx shadcn@latest add button
-```
+## 🚀 Getting Started
 
-This will place the ui components in the `src/components` directory.
+### Prerequisites
 
-## Using components
+Ensure you have the [Tauri prerequisites](https://tauri.app/v2/guides/getting-started/prerequisites) installed on your system.
 
-To use the components in your app, import them as follows:
+### Installation
 
-```tsx
-import { Button } from "@/components/ui/button"
-```
+1. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+2. Run in development mode:
+   ```bash
+   pnpm tauri dev
+   ```
+
+3. Build for production:
+   ```bash
+   pnpm tauri build
+   ```
+
+## 🏗️ Project Structure
+
+- `src-tauri/`: Rust backend and Tauri configuration.
+- `src/store/use-db-store.ts`: Centralized SurrealDB connection and state logic.
+- `src/components/`: Reusable UI components powered by shadcn/ui.
+- `src/routes/`: Page definitions using React Router 7.
+
