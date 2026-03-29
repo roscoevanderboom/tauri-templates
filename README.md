@@ -5,9 +5,10 @@ A curated collection of modern, production-ready Tauri templates designed for sp
 ## ✨ Available Templates
 
 ### 📁 [base-template](./base-template)
+
 The ultimate foundation for Tauri applications using the latest web technologies.
 
-- **Framework:** [React Router 7](https://reactrouter.com/) (formerly Remix)
+- **Framework:** [React Router 7](https://reactrouter.com/)
 - **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
 - **UI Components:** [shadcn/ui](https://ui.shadcn.com/) + [Radix UI](https://www.radix-ui.com/)
 - **Icons:** [Lucide React](https://lucide.dev/) & [Remix Icon](https://remixicon.com/)
@@ -17,16 +18,19 @@ The ultimate foundation for Tauri applications using the latest web technologies
 ## 🛠️ Quick Start
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/roscoevanderboom/tauri-templates.git
    ```
 
 2. **Navigate to a template (e.g., base-template):**
+
    ```bash
    cd base-template
    ```
 
 3. **Install dependencies:**
+
    ```bash
    pnpm install
    ```
