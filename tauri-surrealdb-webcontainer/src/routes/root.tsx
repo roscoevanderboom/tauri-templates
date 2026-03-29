@@ -7,9 +7,16 @@ import { useWebContainerStore } from "@/store/webcontainer-store"
 const currentWindow = getCurrentWindow()
 
 export const root_loader = async () => {
-  await currentWindow.show()
-  await currentWindow.maximize()
-  await currentWindow.setFocus()
+  try {
+    await currentWindow.show()
+    await currentWindow.maximize()
+    await currentWindow.setFocus()
+  } catch (err) {
+    // Non-fatal — window ops can fail if the window is already in the desired state
+    console.warn("[root_loader] Window setup error:", err)
+  }
+  // init() handles its own errors internally and falls back gracefully;
+  // we still await it so the route doesn't render before the store is ready.
   await useWebContainerStore.getState().init()
 }
 

@@ -10,6 +10,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { FSMetadata } from "@/types/fs"
+import { useWebContainerStore } from "@/store/webcontainer-store"
 
 interface FileNode {
   name: string
@@ -24,36 +25,15 @@ const FileExplorer: React.FC = () => {
     new Set(["/"])
   )
   const [loading, setLoading] = useState(true)
-
-  const refreshTree = async () => {
-    if (!webcontainerInstance) return
-    try {
-      const metadata = await parseWebcontainerFS(webcontainerInstance)
-      const nested = nestMetadata(metadata)
-      setTree(nested)
-    } catch (error) {
-      console.error("Failed to refresh file tree:", error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const activeTree = useWebContainerStore((s) => s.activeTree)
 
   useEffect(() => {
-    refreshTree()
-
     if (!webcontainerInstance) return
-
-    // Watch for FS changes and refresh
-    let debounceTimer: ReturnType<typeof setTimeout>
-    webcontainerInstance.fs.watch("/", { recursive: true }, () => {
-      clearTimeout(debounceTimer)
-      debounceTimer = setTimeout(refreshTree, 500)
-    })
-
-    return () => {
-      clearTimeout(debounceTimer)
-    }
-  }, [])
+    parseWebcontainerFS(webcontainerInstance)
+      .then((metadata) => setTree(nestMetadata(metadata)))
+      .catch((err) => console.error("[FileExplorer] Failed to refresh tree:", err))
+      .finally(() => setLoading(false))
+  }, [activeTree])
 
   const toggleFolder = (path: string) => {
     setExpandedPaths((prev) => {
