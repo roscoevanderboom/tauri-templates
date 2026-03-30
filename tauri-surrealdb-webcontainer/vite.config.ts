@@ -67,6 +67,13 @@ export default defineConfig({
         main: path.resolve(__dirname, "index.html"),
         preview: path.resolve(__dirname, "preview.html"),
       },
+      output: {
+        manualChunks: {
+          "vendor-xterm": ["@xterm/xterm", "@xterm/addon-fit"],
+          "vendor-webcontainer": ["@webcontainer/api"],
+          "vendor-react": ["react", "react-dom", "react-router"],
+        },
+      },
     },
   },
 })

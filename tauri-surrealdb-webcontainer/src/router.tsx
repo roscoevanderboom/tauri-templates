@@ -2,8 +2,10 @@ import { createHashRouter } from "react-router"
 import ErrorPage from "@/components/ErrorElement"
 import HydrationElement from "@/components/HydrationElement"
 import { TerminalIcon } from "lucide-react"
-import IDE from "@/routes/ide"
+import { lazy, Suspense } from "react"
 import Root, { root_loader } from "@/routes/root"
+
+const IDE = lazy(() => import("@/routes/ide"))
 
 export const ui_routes = [
   {
@@ -23,7 +25,11 @@ export const router = createHashRouter([
     children: [
       {
         index: true,
-        element: <IDE />,
+        element: (
+          <Suspense fallback={<HydrationElement />}>
+            <IDE />
+          </Suspense>
+        ),
       },
     ],
   },
