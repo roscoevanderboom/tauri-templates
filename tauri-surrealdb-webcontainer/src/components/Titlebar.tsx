@@ -3,12 +3,16 @@ import { exit } from "@tauri-apps/plugin-process"
 import TitlebarMenu from "./TitlebarMenu"
 import { useTheme } from "@/components/theme-provider"
 import { useWebContainerStore } from "@/store/webcontainer-store"
+import { MessageSquareIcon } from "lucide-react"
+import { usePanelsStore } from "@/store/panels-store"
 
 const appWindow = getCurrentWindow()
 
 export default function Titlebar() {
   const { theme, setTheme } = useTheme()
   const activeTree = useWebContainerStore((state) => state.activeTree)
+  const chatOpen = usePanelsStore((s) => s.chatOpen)
+  const toggleChat = usePanelsStore((s) => s.toggleChat)
 
   const handleMinimize = () => appWindow.minimize()
   const handleMaximize = () => appWindow.toggleMaximize()
@@ -35,6 +39,13 @@ export default function Titlebar() {
         </div>
       </div>
       <div className="flex h-8">
+        <button
+          className={`flex h-8 w-[36px] items-center justify-center border-r border-border/30 transition-colors hover:bg-accent/50 hover:text-foreground ${chatOpen ? "text-foreground" : "text-muted-foreground"}`}
+          onClick={toggleChat}
+          title="Toggle chat"
+        >
+          <MessageSquareIcon size={14} />
+        </button>
         <button
           className="flex h-8 items-center justify-center border-r border-border/30 px-3 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground"
           onClick={switchTheme}

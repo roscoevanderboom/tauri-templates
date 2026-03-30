@@ -2,11 +2,15 @@ import { useEffect, useRef, useState } from "react"
 import { exit } from "@tauri-apps/plugin-process"
 import { useNavigate } from "react-router"
 import { ui_routes } from "@/router"
+import { FilesIcon } from "lucide-react"
+import { usePanelsStore } from "@/store/panels-store"
 
 export default function TitlebarMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
+  const explorerOpen = usePanelsStore((s) => s.explorerOpen)
+  const toggleExplorer = usePanelsStore((s) => s.toggleExplorer)
 
   useEffect(() => {
     const handleClickAway = (event: MouseEvent) => {
@@ -47,6 +51,14 @@ export default function TitlebarMenu() {
         >
           <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
         </svg>
+      </button>
+
+      <button
+        className={`flex h-8 w-[36px] items-center justify-center border-r border-border/30 transition-colors hover:bg-accent/50 hover:text-foreground ${explorerOpen ? "text-foreground" : "text-muted-foreground"}`}
+        onClick={toggleExplorer}
+        title="Toggle explorer"
+      >
+        <FilesIcon size={14} />
       </button>
 
       {isOpen && (
