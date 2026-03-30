@@ -7,32 +7,33 @@ import {
 import FileExplorer from "@/components/FileExplorer"
 import Preview from "@/components/Preview"
 import { MessageSquareIcon } from "lucide-react"
+import { usePanelsStore } from "@/store/panels-store"
 
 const IDE = () => {
+  const terminalOpen = usePanelsStore((s) => s.terminalOpen)
+
   return (
     <div className="flex h-full w-full overflow-hidden">
       <ResizablePanelGroup orientation="horizontal" className="h-full w-full">
-        <ResizablePanel
-          defaultSize={20}
-          className="bg-muted/10 backdrop-blur-sm"
-        >
+        <ResizablePanel defaultSize={20} className="bg-muted/10 backdrop-blur-sm">
           <FileExplorer />
         </ResizablePanel>
 
         <ResizableHandle className="bg-border/50 transition-colors hover:bg-primary/50" />
 
-        {/* Center - Editor + Terminal */}
+        {/* Center - Preview + Terminal */}
         <ResizablePanel defaultSize={60}>
           <ResizablePanelGroup orientation="vertical">
-            {/* Preview Area */}
             <ResizablePanel defaultSize={70}>
               <Preview />
             </ResizablePanel>
 
-            <ResizableHandle className="bg-border/30 transition-colors hover:bg-primary/50" />
+            <ResizableHandle
+              hidden={!terminalOpen}
+              className="bg-border/30 transition-colors hover:bg-primary/50"
+            />
 
-            {/* Terminal Area */}
-            <ResizablePanel defaultSize={30}>
+            <ResizablePanel defaultSize={30} hidden={!terminalOpen}>
               <div className="h-full w-full bg-background/50">
                 <TerminalTabs />
               </div>
@@ -43,10 +44,7 @@ const IDE = () => {
         <ResizableHandle className="bg-border/50 transition-colors hover:bg-primary/50" />
 
         {/* Right - Chat */}
-        <ResizablePanel
-          defaultSize={20}
-          className="bg-muted/20 backdrop-blur-sm"
-        >
+        <ResizablePanel defaultSize={20} className="bg-muted/20 backdrop-blur-sm">
           <div className="flex h-full flex-col px-4 py-3">
             <div className="mb-6 flex items-center gap-2 text-muted-foreground/80">
               <MessageSquareIcon size={14} />
