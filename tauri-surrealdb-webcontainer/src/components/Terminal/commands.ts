@@ -1,7 +1,7 @@
 /**
  * Custom terminal command definitions.
- * Each command exports a `match` regex/function and a `resolve` function
- * that returns the actual shell command string to execute.
+ * Each command has a `match` function that receives the raw input line
+ * and returns the shell command string to execute, or null if it doesn't match.
  */
 
 interface CustomCommand {

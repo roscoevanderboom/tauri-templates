@@ -43,15 +43,18 @@ const IDE = () => {
 
         <ResizableHandle className="bg-border/50 transition-colors hover:bg-primary/50" />
 
-        {/* Right - Chat */}
+        {/* Right panel — opinionated VS Code-style layout. Replace or remove this panel freely.
+            TODO: implement a right-hand panel (e.g. AI chat, outline, extensions, database explorer). */}
         <ResizablePanel defaultSize={20} className="bg-muted/20 backdrop-blur-sm">
           <div className="flex h-full flex-col px-4 py-3">
             <div className="mb-6 flex items-center gap-2 text-muted-foreground/80">
               <MessageSquareIcon size={14} />
+              {/* TODO: replace with your panel's title and icon */}
               <span className="text-[10px] font-bold tracking-widest uppercase">
                 Chat
               </span>
             </div>
+            {/* TODO: replace this placeholder with your panel's content */}
             <div className="flex flex-1 flex-col items-center justify-center rounded-lg border border-dashed border-border/50 bg-background/30 p-6 text-center">
               <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                 <MessageSquareIcon size={16} className="text-primary/40" />

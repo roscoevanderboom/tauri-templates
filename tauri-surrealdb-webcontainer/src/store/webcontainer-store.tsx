@@ -6,6 +6,9 @@ import { invoke } from "@tauri-apps/api/core"
 import { isIgnored, metadataToTree, parseWebcontainerFS } from "@/utils/webcontainer-utils"
 import { toast } from "sonner"
 
+// Module-level flag — intentional. Zustand state is async-batched so using
+// it as a synchronous guard causes races. This resets via reset() and on HMR
+// via Vite's import.meta.hot dispose below.
 let listenersInitialized = false
 
 export interface ServerState {
@@ -51,10 +54,7 @@ export const useWebContainerStore = create<WebContainerState>((set, get) => ({
   initializeListeners: () => {
     if (!webcontainerInstance) return () => {}
     
-    // Guard against multiple initializations
-    if (listenersInitialized) {
-      return () => {}
-    }
+    if (listenersInitialized) return () => {}
     listenersInitialized = true
 
     // Port events - manage server state with a small debounce on disconnects
@@ -164,10 +164,13 @@ export const useWebContainerStore = create<WebContainerState>((set, get) => ({
     }
   },
 
-  reset: () => set({
-    isInitialized: false,
-    allTrees: [],
-    activeTree: null,
-    server: { port: 0, url: "", status: "disconnected" },
-  }),
+  reset: () => {
+    listenersInitialized = false
+    set({
+      isInitialized: false,
+      allTrees: [],
+      activeTree: null,
+      server: { port: 0, url: "", status: "disconnected" },
+    })
+  },
 }))

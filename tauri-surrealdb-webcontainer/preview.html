@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebContainer Preview</title>
     <style>
+      /* NOTE: This window is intentionally vanilla HTML/CSS (no Tailwind) as it loads
+         as a separate Tauri window outside the Vite pipeline. The color values below
+         mirror the app's Tailwind theme — update both if the theme changes.
+         TODO: consider extracting shared design tokens to avoid drift. */
       :root {
         --bg-color: #0c0c0e;
         --titlebar-bg: #18181b;
