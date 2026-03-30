@@ -12,6 +12,21 @@ A high-performance, production-ready Tauri template featuring an embedded Surrea
 - **Styling:** [Tailwind CSS 4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - **Theme:** [next-themes](https://github.com/pacocoursey/next-themes) (Light/Dark mode)
 
+## ⚖️ SurrealDB WASM: Benefits & Tradeoffs
+
+This template uses `@surrealdb/wasm` to provide a fully functional SurrealDB engine embedded within the frontend.
+
+### Benefits
+- **Ultra-Small Footprint:** Only ~11 MB installed and a ~5-6 MB Windows package file.
+- **Embedded Engine:** No separate database server process required.
+- **Extreme Performance:** Local in-memory or indexedDB access with zero network latency.
+
+### Tradeoffs
+- **Backend Limitations:** No SurrealKV support in the WASM build.
+- **Platform Bugs:** `indxdb://` storage can be unreliable on Windows due to persistent WebView2 storage bugs (see [Tauri #9222](https://github.com/tauri-apps/tauri/issues/9222) and [SurrealDB #3610](https://github.com/surrealdb/surrealdb/issues/3610)). `mem://` storage is recommended for Windows environments until these upstream issues are fully resolved.
+
+
+
 ## 🚀 Getting Started
 
 ### Prerequisites

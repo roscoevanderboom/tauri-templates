@@ -14,6 +14,16 @@ An advanced, professional-grade Tauri template featuring an embedded terminal, W
 - **Styling:** [Tailwind CSS 4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - **Layout:** [React Resizable Panels](https://github.com/bvaughn/react-resizable-panels)
 
+## ⚖️ Performance & Backend
+
+Unlike the `-wasm` variant, this template runs **SurrealDB directly in the Rust backend**, providing superior performance and full feature support (including SurrealKV and persistent filesystem storage).
+
+### Metrics
+- **Installed Size:** ~66 MB
+- **Windows Package (.msi/.exe):** ~13-15 MB
+- **Storage:** Native filesystem persistence via SurrealDB Rust engine.
+
+
 ## ✨ Unique Features
 
 - **Embedded Development Environment:** Run Node.js directly within the Tauri app using WebContainers.
