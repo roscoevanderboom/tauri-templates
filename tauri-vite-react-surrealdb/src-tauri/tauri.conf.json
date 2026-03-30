@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "tauri-vite-react-surrealdb",
   "version": "0.1.0",
-  "identifier": "tauri-vite-react-surrealdb",
+  "identifier": "com.roscoevanderboom.tauri-vite-react-surrealdb",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:5173",

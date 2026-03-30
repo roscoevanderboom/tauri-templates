@@ -56,5 +56,13 @@ export default defineConfig({
     minify: !process.env.TAURI_ENV_DEBUG ? "esbuild" : false,
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_ENV_DEBUG,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-surrealdb": ["surrealdb", "@surrealdb/wasm"],
+          "vendor-react": ["react", "react-dom", "react-router"],
+        },
+      },
+    },
   },
 })

@@ -69,19 +69,15 @@ export const useDBStore = create<DBStore>()(
         if (!profile) return
 
         set({ activeProfileId: id })
-        try {
-          await get().connect(profile)
-        } catch (err) {
-          // Error handling is inside connect
-        }
+        await get().connect(profile)
       },
 
       initialize: async (config) => {
         set({ status: "connecting", error: null })
         try {
           await get().connect(config)
-        } catch (err: any) {
-          set({ status: "error", error: err.message || "Failed to initialize" })
+        } catch (err) {
+          set({ status: "error", error: err instanceof Error ? err.message : "Failed to initialize" })
         }
       },
 
@@ -89,8 +85,6 @@ export const useDBStore = create<DBStore>()(
         set({ status: "connecting", error: null })
         
         try {
-          // If already connected to another host, close first? 
-          // Usually db.connect to new URL handles it, but close is safer.
           await db.connect(config.host)
 
           if (config.user && config.pass) {
@@ -104,8 +98,8 @@ export const useDBStore = create<DBStore>()(
           
           set({ status: "connected" })
           toast.success("Connected to database")
-        } catch (err: any) {
-          const message = err.message || "Error connecting to database"
+        } catch (err) {
+          const message = err instanceof Error ? err.message : "Error connecting to database"
           set({ status: "error", error: message })
           toast.error(message)
           throw err
@@ -116,7 +110,7 @@ export const useDBStore = create<DBStore>()(
         try {
           await db.close()
           set({ status: "disconnected", activeProfileId: null })
-        } catch (err: any) {
+        } catch (err) {
           console.error("Error disconnecting:", err)
         }
       },

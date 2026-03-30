@@ -16,9 +16,7 @@ import {
   Globe,
 } from "lucide-react"
 
-export const home_loader = async () => {
-  return {}
-}
+export const home_loader = async () => null
 
 const Home = () => {
   const {
