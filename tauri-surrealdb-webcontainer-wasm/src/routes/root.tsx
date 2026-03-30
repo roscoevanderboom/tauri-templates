@@ -13,10 +13,10 @@ export const root_loader = async () => {
     await useWebContainerStore.getState().init()
     await currentWindow.show()
     await currentWindow.maximize()
+    await currentWindow.setFocus()
   } catch (err) {
     console.warn("[root_loader] Window setup error:", err)
   }
-
 }
 
 function Root() {
